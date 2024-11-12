@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>formularz</title>
+	
+	<script>
+	
+		function CzyPoprawny() {
+		
+			var wzorImie = /^[A-ZĄĆĘŁŃÓŚŻŹ][a-ząćęłńóśżź]*$/;
+			var wzorNazwisko = /^[A-ZĄĆĘŁŃÓŚŻŹ][A-ZĄĆĘŁŃÓŚŻŹa-ząćęłńóśżź \-]*$/;
+			var wzorHaslo = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9]{13,}$/;
+			var wzorDom = /^[0-9]+[a-zA-Z]*$/;
+			var wzorMiasto = /^[A-ZĄĆĘŁŃÓŚŻŹ][A-ZĄĆĘŁŃÓŚŻŹa-ząćęłńóśżź \-]*$/;
+			var wzorTelefon = /^\+48[\s]?[0-9]{3}[\s]?[0-9]{3}[\s]?[0-9]{3}$/;
+			var wzorPanstwo = /^[A-ZĄĆĘŁŃÓŚŻŹ][A-ZĄĆĘŁŃÓŚŻŹa-ząćęłńóśżź \-]*$/;
+			
+			var bledy = [];
+			
+			var imie = document.forms["formularz"]["imie"].value;
+			if (!wzorImie.test(imie)){
+				bledy.push("Błąd w polu \"imię\": musi zawierać tylko litery, w tym pierwszą dużą");
+			}
+				
+			var nazwisko = document.forms["formularz"]["nazwisko"].value;
+			if (!wzorNazwisko.test(nazwisko)){
+				bledy.push("Błąd w polu \"nazwisko\": musi zawierać tylko litery (ewentualnie odzielone spacją lub myślnikiem), w tym pierwszą dużą");
+			}
+			
+			var haslo = document.forms["formularz"]["haslo"].value;
+			if (!wzorHaslo.test(haslo)){
+				bledy.push("Błąd w polu \"hasło\": musi zawierać co najmniej 13 znaków, w tym przynajmniej jedną wielka litera, jedną mała litera i jedna cyfra (bez znaków polskich i specjalnych)");
+			}
+			
+			var dom = document.forms["formularz"]["dom"].value;
+			if (!wzorDom.test(dom)){
+				bledy.push("Błąd w polu \"dom\": musi zawierać liczbę plus (opcjonalnie) litery");
+			}
+			
+			var miasto = document.forms["formularz"]["miasto"].value;
+			if (!wzorMiasto.test(miasto)){
+				bledy.push("Błąd w polu \"miasto\": musi zawierać tylko litery (ewentualnie odzielone spacją lub myślnikiem), w tym pierwszą dużą");
+			}
+			
+			var telefon = document.forms["formularz"]["telefon"].value;
+			if (!wzorTelefon.test(telefon)){
+				bledy.push("Błąd w polu \"telefon\": musi być w formacie: +48 XXX XXX XXX");
+			}
+			
+			var panstwo = document.forms["formularz"]["panstwo"].value;
+			if (!wzorPanstwo.test(panstwo)){
+				bledy.push("Błąd w polu \"pańśtwo\": musi zawierać tylko litery (ewentualnie odzielone spacją lub myślnikiem), w tym pierwszą dużą");
+			}
+
+			if (bledy.length) {
+                alert("Wystąpiły błędy:\n\n" + bledy.join("\n\n"));
+				return false
+            }
+			
+			return true
+		}
+	
+	</script>
+	
+  </head>
+  <body>
+  <h1>FORMULARZ</h1>
+  
+  <form name="formularz" action="adresdanych.pl" onsubmit="return CzyPoprawny()">
+  
+  <table style="width:90%">
+  
+	<tr>
+	<td><label>Podaj imię:</label></td><td><input type="text" name="imie" required></td>
+	<td><label>Podaj datę urodzenia:</label></td><td><input type="date" name="data_urodzenia" required></td>
+	</tr>
+
+	<tr>
+	<td><label>Podaj nazwisko:</label></td><td><input type="text" name="nazwisko" required></td>
+	<td><label>Czy posiadasz prawo jazdy?</label></td><td><input type="radio" name="prawo" value="tak" required><label for="tak">Tak</label><input type="radio" name="prawo" value="nie" required><label for="nie">Nie</label></td>
+	</tr>
+
+	<tr>
+	<td><label>Podaj ulicę:</label></td><td><input type="text" name="ulica" required></td>
+	<td><label>Podaj hasło (co najmniej 13 znaków, w tym przynajmniej jedną wielka litera, jedną mała litera i jedna cyfra; bez znaków specjalnych):</label></td><td><input type="password" name="haslo" required></td>
+	</tr>
+
+	<tr>
+	<td><label>Podaj numer domu:</label></td><td><input type="text" name="dom" required></td>
+	<td><label>Podaj płeć:</label></td><td><input type="radio" name="plec" value="kobieta" required><label for="kobieta">Kobieta</label><input type="radio" name="plec" value="mezczyzna" required><label for="mezczyzna">Mężczyzna</label><input type="radio" name="plec" value="inna" required><label for="inna">Inna</label><input type="radio" name="plec" value="niechce" required><label for="niechce">Nie podaję</label></td>
+	</tr>
+
+	<tr>
+	<td><label>Podaj numer mieszkania (opcjonalnie):</label></td><td><input type="number" name="mieszkanie" min="1" ></td>
+	<td><label>Podaj miejsce zamieszkania (miasto):</label></td><td><input type="text" name="miasto" required></td>
+	</tr>
+
+	<tr>
+	<td><label>Podaj telefon (w formacie: +48 XXX XXX XXX):</label></td><td><input type="tel" name="telefon" required></td>
+	<td><label>Podaj panstwo zamieszkania:</label></td><td><input type="text" name="panstwo" required></td>
+	</tr>
+
+	</table>
+
+	<br/><br/>
+
+	<input type="submit" value="ZAPISZ">
+
+ </form>
+ </body>
+ </head>
